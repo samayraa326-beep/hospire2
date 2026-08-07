@@ -1,5 +1,4 @@
 import SearchBar from "./SearchBar";
-
 export default function Hero() {
   return (
     <section className="bg-gradient-to-b from-blue-50 to-white">
