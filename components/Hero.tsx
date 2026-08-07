@@ -1,9 +1,12 @@
+import Link from "next/link";
 import SearchBar from "./SearchBar";
+
 export default function Hero() {
   return (
     <section className="bg-gradient-to-b from-blue-50 to-white">
       <div className="mx-auto max-w-7xl px-6 py-24">
         <div className="grid items-center gap-12 lg:grid-cols-2">
+
           {/* Left Content */}
           <div>
             <span className="rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700">
@@ -19,18 +22,24 @@ export default function Hero() {
               resorts and hospitality leaders on one professional platform.
             </p>
 
+            {/* Buttons */}
             <div className="mt-10 flex flex-wrap gap-4">
-              <button className="rounded-xl bg-blue-700 px-8 py-4 text-lg font-semibold text-white hover:bg-blue-800">
-                Explore Jobs
-              </button>
+              <Link
+                href="/dashboard"
+                className="rounded-xl bg-blue-700 px-8 py-4 text-lg font-semibold text-white transition hover:bg-blue-800"
+              >
+                Explore Dashboard
+              </Link>
 
-              <button className="rounded-xl border border-slate-300 bg-white px-8 py-4 text-lg font-semibold hover:bg-slate-100">
+              <button className="rounded-xl border border-slate-300 bg-white px-8 py-4 text-lg font-semibold transition hover:bg-slate-100">
                 Hire Talent
               </button>
             </div>
 
+            {/* Search */}
             <SearchBar />
 
+            {/* Stats */}
             <div className="mt-12 flex flex-wrap gap-10">
               <div>
                 <h2 className="text-3xl font-bold text-blue-700">500+</h2>
@@ -46,6 +55,11 @@ export default function Hero() {
                 <h2 className="text-3xl font-bold text-blue-700">2500+</h2>
                 <p className="text-slate-500">Jobs</p>
               </div>
+
+              <div>
+                <h2 className="text-3xl font-bold text-blue-700">200+</h2>
+                <p className="text-slate-500">Recruiters</p>
+              </div>
             </div>
           </div>
 
@@ -59,6 +73,7 @@ export default function Hero() {
               />
             </div>
           </div>
+
         </div>
       </div>
     </section>
