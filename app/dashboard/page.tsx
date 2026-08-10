@@ -1,3 +1,4 @@
+import Link from "next/link";
 export default function Dashboard() {
   return (
     <main className="min-h-screen bg-slate-100 p-8">
@@ -60,12 +61,16 @@ export default function Dashboard() {
             </h3>
           </button>
 
-          <button className="rounded-3xl bg-white p-8 text-left shadow-lg hover:-translate-y-1 transition">
-            👤
-            <h3 className="mt-4 text-xl font-bold">
-              Edit Profile
-            </h3>
-          </button>
+          <Link
+  href="/profile"
+  className="rounded-3xl bg-white p-8 text-left shadow-lg transition hover:-translate-y-1"
+>
+  <div className="text-3xl">👤</div>
+
+  <h3 className="mt-4 text-xl font-bold">
+    Edit Profile
+  </h3>
+</Link>
 
           <button className="rounded-3xl bg-white p-8 text-left shadow-lg hover:-translate-y-1 transition">
             💼
