@@ -9,6 +9,7 @@ export default function ProfilePage() {
 
        <ProfileHero />
        <ProfileStats />
+       <PortfolioGallery /> 
         {/* Personal Information */}
 
         <div className="mt-10">
@@ -165,7 +166,7 @@ export default function ProfilePage() {
 
         </div>
 <PortfolioSection />
-<PortfolioGallery />
+
         <button className="mt-12 rounded-xl bg-blue-700 px-10 py-4 text-lg font-semibold text-white hover:bg-blue-800">
           Save Profile
         </button>
