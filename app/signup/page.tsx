@@ -42,22 +42,7 @@ export default function SignupPage() {
       return;
     }
 
-    if (data.user) {
-      const { error: profileError } = await supabase.from("profiles").upsert(
-        {
-          id: data.user.id,
-          full_name: name.trim(),
-          role,
-        },
-        { onConflict: "id" }
-      );
-
-      if (profileError) {
-        setError(profileError.message);
-        setLoading(false);
-        return;
-      }
-    }
+    
 
     if (data.session) {
       router.push(role === "employer" ? "/dashboard?type=employer" : "/dashboard");
