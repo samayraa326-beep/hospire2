@@ -7,6 +7,7 @@ export default function PortfolioGallery() {
   const [savedWorks, setSavedWorks] = useState<any[]>([]);
 const [loadingWorks, setLoadingWorks] = useState(true);
 const [showAddWork, setShowAddWork] = useState(false);
+const [selectedWork, setSelectedWork] = useState<any | null>(null);
 const [title, setTitle] = useState("");
 const [category, setCategory] = useState("Culinary");
 const [description, setDescription] = useState("");
@@ -369,9 +370,13 @@ useEffect(() => {
                 {work.description}
               </p>
 
-              <button className="mt-5 font-semibold text-blue-700 hover:text-blue-900">
-                View Project →
-              </button>
+              <button
+  type="button"
+  onClick={() => setSelectedWork(work)}
+  className="mt-5 font-semibold text-blue-700 hover:text-blue-900"
+>
+  View Project →
+</button>
 
             </div>
 
@@ -379,7 +384,86 @@ useEffect(() => {
         ))}
 
       </div>
+{selectedWork && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 p-4 backdrop-blur-sm">
+    <div className="relative max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-3xl bg-white shadow-2xl">
 
+      {/* Close */}
+      <button
+        type="button"
+        onClick={() => setSelectedWork(null)}
+        className="absolute right-4 top-4 z-10 rounded-full bg-white/90 px-4 py-2 text-2xl font-bold text-slate-600 shadow-lg hover:bg-white hover:text-slate-900"
+      >
+        ×
+      </button>
+
+      {/* Media */}
+      <div className="bg-slate-950">
+        {selectedWork.media_type === "video" ? (
+          <video
+            src={selectedWork.media_url}
+            controls
+            autoPlay
+            playsInline
+            className="max-h-[60vh] w-full object-contain"
+          />
+        ) : (
+          <img
+            src={selectedWork.media_url || selectedWork.image}
+            alt={selectedWork.title}
+            className="max-h-[60vh] w-full object-contain"
+          />
+        )}
+      </div>
+
+      {/* Project information */}
+      <div className="p-6 sm:p-8">
+
+        <span className="rounded-full bg-blue-50 px-4 py-2 text-sm font-bold text-blue-700">
+          {selectedWork.category}
+        </span>
+
+        <h2 className="mt-4 text-3xl font-extrabold text-slate-900 sm:text-4xl">
+          {selectedWork.title}
+        </h2>
+
+        {selectedWork.description && (
+          <p className="mt-4 text-base leading-7 text-slate-600">
+            {selectedWork.description}
+          </p>
+        )}
+
+        {selectedWork.skills && (
+          <div className="mt-6">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-500">
+              Skills Used
+            </h3>
+
+            <div className="mt-3 flex flex-wrap gap-2">
+              {selectedWork.skills
+                .split(",")
+                .map((skill: string) => skill.trim())
+                .filter(Boolean)
+                .map((skill: string) => (
+                  <span
+                    key={skill}
+                    className="rounded-full bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700"
+                  >
+                    {skill}
+                  </span>
+                ))}
+            </div>
+          </div>
+        )}
+
+        <div className="mt-8 border-t border-slate-100 pt-5 text-sm text-slate-400">
+          Living Portfolio • Real work by the candidate
+        </div>
+
+      </div>
+    </div>
+  </div>
+)}
       {/* Bottom CTA */}
 
       <div className="mt-10 rounded-3xl bg-slate-900 p-8 text-white">
