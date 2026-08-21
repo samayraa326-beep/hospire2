@@ -7,6 +7,8 @@ import { createClient } from "../lib/supabase/client";
 type Mode = "login" | "signup";
 type Role = "candidate" | "employer";
 
+const PRODUCTION_URL = "https://hospire2-jx7quxdoz-jack-97bf.vercel.app";
+
 export default function Home() {
   const router = useRouter();
   const supabase = createClient();
@@ -34,7 +36,7 @@ export default function Home() {
     setGoogleLoading(true);
     const { error: oauthError } = await supabase.auth.signInWithOAuth({
       provider: "google",
-      options: { redirectTo: `${window.location.origin}/onboarding` },
+      options: { redirectTo: `${PRODUCTION_URL}/onboarding` },
     });
     if (oauthError) {
       setError(oauthError.message);
