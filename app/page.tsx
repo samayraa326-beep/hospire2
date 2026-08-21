@@ -4,6 +4,7 @@ import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "../lib/supabase/client";
+import FeaturedTalent from "../components/FeaturedTalent";
 
 type Mode = "login" | "signup";
 type Role = "candidate" | "employer";
@@ -146,6 +147,7 @@ export default function Home() {
           </div>
         </section>
       </div>
+      <FeaturedTalent />
     </main>
   );
 }
