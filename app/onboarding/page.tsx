@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { createClient } from "../../lib/supabase/client";
@@ -30,7 +30,7 @@ const skillOptions = [
   "Teamwork",
 ];
 
-export default function OnboardingPage() {
+function OnboardingContent() {
   const router = useRouter();
   const supabase = useMemo(() => createClient(), []);
   const searchParams = useSearchParams();
@@ -467,4 +467,8 @@ export default function OnboardingPage() {
       </section>
     </main>
   );
+}
+
+export default function OnboardingPage() {
+  return <Suspense fallback={<main className="min-h-screen bg-slate-50 flex items-center justify-center"><div className="text-center"><div className="text-3xl font-black">Hospire</div><p className="mt-2 text-sm text-slate-500">Loading your profile...</p></div></main>}><OnboardingContent /></Suspense>;
 }
