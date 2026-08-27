@@ -69,6 +69,34 @@ export default function Dashboard() {
         </section>
 
         <section className="mt-12">
+          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+            <div>
+              <p className="text-sm font-black uppercase tracking-widest text-blue-700">Learn & grow</p>
+              <h2 className="mt-2 text-3xl font-black text-slate-950">Courses for your next level.</h2>
+              <p className="mt-2 max-w-2xl text-slate-500">Build practical hospitality skills, earn credentials and become more job-ready.</p>
+            </div>
+            <Link href="/courses" className="font-black text-blue-700 hover:text-blue-900">View all courses →</Link>
+          </div>
+          <div className="mt-6 grid gap-5 md:grid-cols-3">
+            {[
+              ["👨‍🍳","Professional Kitchen Fundamentals","Knife skills, food preparation, hygiene and kitchen discipline.","Culinary"],
+              ["🏨","Hotel & Hospitality Essentials","Guest service, front office basics and professional standards.","Hospitality"],
+              ["🧼","Food Safety & Hygiene","Practical hygiene, sanitation and safe food-handling habits.","Certification"],
+            ].map(([icon,title,desc,tag]) => (
+              <Link href="/courses" key={title} className="group rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200 transition hover:-translate-y-1 hover:shadow-xl">
+                <div className="flex items-center justify-between">
+                  <span className="text-4xl">{icon}</span>
+                  <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-black text-blue-700">{tag}</span>
+                </div>
+                <h3 className="mt-6 text-xl font-black text-slate-950">{title}</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-500">{desc}</p>
+                <span className="mt-5 inline-block text-sm font-black text-blue-700 group-hover:translate-x-1 transition">Explore course →</span>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-12">
           <p className="text-sm font-black uppercase tracking-widest text-blue-700">Built for every hospitality business</p>
           <h2 className="mt-2 text-3xl font-black">From luxury hotels to the street.</h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
