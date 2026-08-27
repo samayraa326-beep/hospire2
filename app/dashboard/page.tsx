@@ -38,7 +38,7 @@ export default function Dashboard() {
             <Link href="/courses" className="text-sm font-bold text-slate-600 hover:text-blue-700">Courses & Certifications</Link>
             <Link href="/challenges" className="text-sm font-bold text-slate-600 hover:text-blue-700">Challenges</Link>
           </nav>
-          <Link href={employer ? "/opportunities/post" : "/profile"} className="rounded-xl bg-blue-700 px-4 py-2.5 text-sm font-black text-white hover:bg-blue-800">{employer ? "Post an Opportunity" : "Profile"}</Link>
+          <Link href={employer ? "/opportunities/post" : "/profile"} className="rounded-xl bg-blue-700 px-4 py-2.5 text-sm font-black text-white hover:bg-blue-800">{employer ? "Post an Opportunity" : "My Profile"}</Link>
         </div>
       </header>
 
