@@ -62,12 +62,25 @@ export default function OnboardingPage() {
       const { data: profile } = await supabase
         .from("profiles")
         .select(
-          "full_name, phone, city, institute, headline, bio, hospitality_role, experience_years, skills"
+          "full_name, phone, city, institute, headline, bio, hospitality_role, experience_years, skills, role"
         )
         .eq("id", user.id)
         .maybeSingle();
 
       if (profile) {
+        // A profile row can exist automatically after signup. Only treat it as
+        // "completed" when the essentials saved by onboarding are present.
+        const profileComplete = Boolean(
+          profile.full_name?.trim() &&
+          profile.city?.trim() &&
+          profile.hospitality_role?.trim()
+        );
+        if (profileComplete) {
+          const accountRole = (profile as { role?: string }).role ?? user.user_metadata?.role ?? "candidate";
+          router.replace(accountRole === "employer" ? "/dashboard?type=employer" : "/dashboard");
+          return;
+        }
+
         setName(profile.full_name ?? user.user_metadata?.full_name ?? "");
         setPhone(profile.phone ?? "");
         setCity(profile.city ?? "");
