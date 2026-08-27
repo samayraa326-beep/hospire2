@@ -29,7 +29,7 @@ export default function SignupPage() {
     setGoogleLoading(true);
     const { error: oauthError } = await supabase.auth.signInWithOAuth({
       provider: "google",
-      options: { redirectTo: `${window.location.origin}/onboarding` },
+      options: { redirectTo: `${window.location.origin}/onboarding?role=${role}` },
     });
     if (oauthError) {
       setError(oauthError.message);
@@ -48,7 +48,7 @@ export default function SignupPage() {
     setLoading(true);
     const { data, error: signUpError } = await supabase.auth.signUp({
       email: email.trim(), password,
-      options: { data: { full_name: name.trim(), role }, emailRedirectTo: `${window.location.origin}/onboarding` },
+      options: { data: { full_name: name.trim(), role }, emailRedirectTo: `${window.location.origin}/onboarding?role=${role}` },
     });
     if (signUpError) {
       setError(signUpError.message);
@@ -71,7 +71,7 @@ export default function SignupPage() {
         <section className="p-7 sm:p-10 lg:p-14">
           <div className="mb-8 lg:hidden"><div className="text-2xl font-black">Hospire</div><p className="mt-1 text-sm text-slate-500">Hospitality careers, built on trust.</p></div>
           <div className="max-w-xl"><p className="text-sm font-bold uppercase tracking-widest text-blue-700">Create account</p><h2 className="mt-3 text-4xl font-black tracking-tight">Welcome to Hospire.</h2><p className="mt-3 text-slate-500">First, tell us how you&apos;ll use Hospire.</p>
-            <div className="mt-8 grid gap-3 sm:grid-cols-2"><button type="button" onClick={() => setRole("candidate")} className={`rounded-2xl border p-5 text-left transition ${role === "candidate" ? "border-blue-600 bg-blue-50 ring-2 ring-blue-100" : "border-slate-200 hover:border-slate-300"}`}><span className="text-2xl">👨‍🍳</span><span className="mt-3 block font-black">I&apos;m looking for work</span><span className="mt-1 block text-sm text-slate-500">Student or hospitality professional</span></button><button type="button" onClick={() => setRole("employer")} className={`rounded-2xl border p-5 text-left transition ${role === "employer" ? "border-blue-600 bg-blue-50 ring-2 ring-blue-100" : "border-slate-200 hover:border-slate-300"}`}><span className="text-2xl">🏨</span><span className="mt-3 block font-black">I&apos;m hiring talent</span><span className="mt-1 block text-sm text-slate-500">Hotel, restaurant or hospitality company</span></button></div>
+            <div className="mt-8 grid gap-3 sm:grid-cols-2"><button type="button" onClick={() => setRole("candidate")} className={`rounded-2xl border p-5 text-left transition ${role === "candidate" ? "border-blue-600 bg-blue-50 ring-2 ring-blue-100" : "border-slate-200 hover:border-slate-300"}`}><span className="text-2xl">👨‍🍳</span><span className="mt-3 block font-black">I&apos;m looking for jobs</span><span className="mt-1 block text-sm text-slate-500">Student or hospitality professional</span></button><button type="button" onClick={() => setRole("employer")} className={`rounded-2xl border p-5 text-left transition ${role === "employer" ? "border-blue-600 bg-blue-50 ring-2 ring-blue-100" : "border-slate-200 hover:border-slate-300"}`}><span className="text-2xl">🏨</span><span className="mt-3 block font-black">I&apos;m hiring</span><span className="mt-1 block text-sm text-slate-500">Hotel, restaurant or hospitality company</span></button></div>
 
             <button type="button" onClick={handleGoogle} disabled={googleLoading} className="mt-8 flex w-full items-center justify-center gap-3 rounded-xl border border-slate-200 px-5 py-4 font-black text-slate-900 transition hover:border-slate-300 hover:bg-slate-50 disabled:opacity-60"><span className="text-lg">G</span>{googleLoading ? "Connecting to Google..." : "Continue with Google"}</button>
             <div className="my-6 flex items-center gap-3"><div className="h-px flex-1 bg-slate-200"/><span className="text-xs font-bold uppercase tracking-widest text-slate-400">or email</span><div className="h-px flex-1 bg-slate-200"/></div>
