@@ -8,7 +8,7 @@ const categories = [
   ["💼","Opportunities","Find jobs across hotels, restaurants, cafés, cloud kitchens, airlines and more.","/opportunities"],
   ["👨‍🍳","Discover Talent","Explore hospitality professionals and their real work portfolios.","/discover"],
   ["🤝","Connect","Build meaningful connections with chefs and hospitality professionals.","/discover"],
-  ["👤","My Profile","Manage your profile, skills and living portfolio.","/profile"],
+  ["🏆","Challenges","Compete, participate and get recognized — online, offline or hybrid.","/challenges"],
 ];
 
 export default function Dashboard() {
@@ -33,11 +33,12 @@ export default function Dashboard() {
           <Link href="/" className="text-2xl font-black tracking-tight text-slate-950">Hospire</Link>
           <nav className="hidden items-center gap-7 md:flex">
             <Link href="/opportunities" className="text-sm font-bold text-slate-600 hover:text-blue-700">Opportunities</Link>
-            <Link href="/discover" className="text-sm font-bold text-slate-600 hover:text-blue-700">Discover Talent</Link>
+            <Link href="/discover" className="text-sm font-bold text-slate-600 hover:text-blue-700">Talent</Link>
+            <Link href="/community" className="text-sm font-bold text-slate-600 hover:text-blue-700">Community</Link>
             <Link href="/courses" className="text-sm font-bold text-slate-600 hover:text-blue-700">Courses & Certifications</Link>
-            <Link href="/profile" className="text-sm font-bold text-slate-600 hover:text-blue-700">My Profile</Link>
+            <Link href="/challenges" className="text-sm font-bold text-slate-600 hover:text-blue-700">Challenges</Link>
           </nav>
-          <Link href={employer ? "/opportunities/post" : "/profile"} className="rounded-xl bg-blue-700 px-4 py-2.5 text-sm font-black text-white hover:bg-blue-800">{employer ? "Post an Opportunity" : "Edit Profile"}</Link>
+          <Link href={employer ? "/opportunities/post" : "/profile"} className="rounded-xl bg-blue-700 px-4 py-2.5 text-sm font-black text-white hover:bg-blue-800">{employer ? "Post an Opportunity" : "Profile"}</Link>
         </div>
       </header>
 
@@ -48,7 +49,6 @@ export default function Dashboard() {
           <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-300">{employer ? "Find the right hospitality professional for your business — based on skills, experience and real work." : "Your next opportunity, connection or career move could be one click away."}</p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link href={employer ? "/discover" : "/opportunities"} className="rounded-xl bg-white px-6 py-3.5 font-black text-slate-950 hover:bg-slate-100">{employer ? "Discover Talent →" : "Find Opportunities →"}</Link>
-            <Link href="/profile" className="rounded-xl border border-white/25 px-6 py-3.5 font-black text-white hover:bg-white/10">View My Profile</Link>
           </div>
         </div>
       </section>
@@ -77,24 +77,6 @@ export default function Dashboard() {
               <p className="mt-2 max-w-2xl text-slate-500">Discover programs from hospitality institutes and industry trainers — for careers, skills and food-business dreams.</p>
             </div>
             <Link href="/courses" className="font-black text-blue-700 hover:text-blue-900">Explore all →</Link>
-          </div>
-          <div className="mt-6 grid gap-5 md:grid-cols-3">
-            {["👨‍🍳 Become a Chef","☕ Learn Café & Barista Skills","📈 Start Your Food Business"].map((title) => (
-              <Link href="/courses" key={title} className="group rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200 transition hover:-translate-y-1 hover:shadow-xl">
-                <div className="text-3xl">{title.slice(0,2)}</div>
-                <h3 className="mt-4 text-xl font-black text-slate-950">{title.slice(3)}</h3>
-                <p className="mt-2 text-sm leading-6 text-slate-500">Find relevant courses, certifications and training providers on Hospire.</p>
-                <span className="mt-5 inline-block text-sm font-black text-blue-700">Explore →</span>
-              </Link>
-            ))}
-          </div>
-        </section>
-
-        <section className="mt-12">
-          <p className="text-sm font-black uppercase tracking-widest text-blue-700">Built for every hospitality business</p>
-          <h2 className="mt-2 text-3xl font-black">From luxury hotels to the street.</h2>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {["Luxury Hotels","Restaurants & Cafés","Cloud Kitchens","Airlines & Cruises","Street Food & Independent Businesses","Catering & Events","Resorts","Corporate Hospitality"].map(x=><div key={x} className="rounded-2xl bg-slate-100 p-5 font-black text-slate-800 ring-1 ring-slate-200">{x}</div>)}
           </div>
         </section>
       </section>
