@@ -34,6 +34,7 @@ export default function Dashboard() {
           <nav className="hidden items-center gap-7 md:flex">
             <Link href="/opportunities" className="text-sm font-bold text-slate-600 hover:text-blue-700">Opportunities</Link>
             <Link href="/discover" className="text-sm font-bold text-slate-600 hover:text-blue-700">Discover Talent</Link>
+            <Link href="/courses" className="text-sm font-bold text-slate-600 hover:text-blue-700">Courses & Certifications</Link>
             <Link href="/profile" className="text-sm font-bold text-slate-600 hover:text-blue-700">My Profile</Link>
           </nav>
           <Link href={employer ? "/opportunities/post" : "/profile"} className="rounded-xl bg-blue-700 px-4 py-2.5 text-sm font-black text-white hover:bg-blue-800">{employer ? "Post an Opportunity" : "Edit Profile"}</Link>
@@ -72,25 +73,18 @@ export default function Dashboard() {
           <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div>
               <p className="text-sm font-black uppercase tracking-widest text-blue-700">Learn & grow</p>
-              <h2 className="mt-2 text-3xl font-black text-slate-950">Courses for your next level.</h2>
-              <p className="mt-2 max-w-2xl text-slate-500">Build practical hospitality skills, earn credentials and become more job-ready.</p>
+              <h2 className="mt-2 text-3xl font-black text-slate-950">Courses & certifications for your next step.</h2>
+              <p className="mt-2 max-w-2xl text-slate-500">Discover programs from hospitality institutes and industry trainers — for careers, skills and food-business dreams.</p>
             </div>
-            <Link href="/courses" className="font-black text-blue-700 hover:text-blue-900">View all courses →</Link>
+            <Link href="/courses" className="font-black text-blue-700 hover:text-blue-900">Explore all →</Link>
           </div>
           <div className="mt-6 grid gap-5 md:grid-cols-3">
-            {[
-              ["👨‍🍳","Professional Kitchen Fundamentals","Knife skills, food preparation, hygiene and kitchen discipline.","Culinary"],
-              ["🏨","Hotel & Hospitality Essentials","Guest service, front office basics and professional standards.","Hospitality"],
-              ["🧼","Food Safety & Hygiene","Practical hygiene, sanitation and safe food-handling habits.","Certification"],
-            ].map(([icon,title,desc,tag]) => (
+            {["👨‍🍳 Become a Chef","☕ Learn Café & Barista Skills","📈 Start Your Food Business"].map((title) => (
               <Link href="/courses" key={title} className="group rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200 transition hover:-translate-y-1 hover:shadow-xl">
-                <div className="flex items-center justify-between">
-                  <span className="text-4xl">{icon}</span>
-                  <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-black text-blue-700">{tag}</span>
-                </div>
-                <h3 className="mt-6 text-xl font-black text-slate-950">{title}</h3>
-                <p className="mt-2 text-sm leading-6 text-slate-500">{desc}</p>
-                <span className="mt-5 inline-block text-sm font-black text-blue-700 group-hover:translate-x-1 transition">Explore course →</span>
+                <div className="text-3xl">{title.slice(0,2)}</div>
+                <h3 className="mt-4 text-xl font-black text-slate-950">{title.slice(3)}</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-500">Find relevant courses, certifications and training providers on Hospire.</p>
+                <span className="mt-5 inline-block text-sm font-black text-blue-700">Explore →</span>
               </Link>
             ))}
           </div>
