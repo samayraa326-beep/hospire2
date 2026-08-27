@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { createClient } from "../../lib/supabase/client";
 
@@ -32,6 +33,14 @@ const skillOptions = [
 export default function OnboardingPage() {
   const router = useRouter();
   const supabase = useMemo(() => createClient(), []);
+  const searchParams = useSearchParams();
+  const [accountRole, setAccountRole] = useState<"candidate" | "employer">("candidate");
+  const [companyName, setCompanyName] = useState("");
+  const [companyType, setCompanyType] = useState("");
+  const [companyCity, setCompanyCity] = useState("");
+  const [companyWebsite, setCompanyWebsite] = useState("");
+  const [companyAbout, setCompanyAbout] = useState("");
+  const [hiringNeeds, setHiringNeeds] = useState("");
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -67,17 +76,20 @@ export default function OnboardingPage() {
         .eq("id", user.id)
         .maybeSingle();
 
+      const roleFromUrl = searchParams.get("role");
+      const detectedRole = profile?.role === "employer" || roleFromUrl === "employer" ? "employer" : "candidate";
+      setAccountRole(detectedRole);
       if (profile) {
         // A profile row can exist automatically after signup. Only treat it as
         // "completed" when the essentials saved by onboarding are present.
         const profileComplete = Boolean(
           profile.full_name?.trim() &&
           profile.city?.trim() &&
-          profile.hospitality_role?.trim()
+          detectedRole === "employer" || profile.hospitality_role?.trim()
         );
         if (profileComplete) {
           const accountRole = (profile as { role?: string }).role ?? user.user_metadata?.role ?? "candidate";
-          router.replace(accountRole === "employer" ? "/dashboard?type=employer" : "/dashboard");
+          router.replace(detectedRole === "employer" ? "/dashboard?type=employer" : "/dashboard");
           return;
         }
 
@@ -103,7 +115,7 @@ export default function OnboardingPage() {
     }
 
     loadProfile();
-  }, [router, supabase]);
+  }, [router, supabase, searchParams]);
 
   const toggleSkill = (skill: string) => {
     setSkills((current) =>
@@ -139,7 +151,7 @@ export default function OnboardingPage() {
       return;
     }
 
-    if (!city.trim()) {
+    if (accountRole === "candidate" && !city.trim()) {
       setError("Please enter your city.");
       return;
     }
