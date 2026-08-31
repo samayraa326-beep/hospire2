@@ -31,16 +31,16 @@ export default function Dashboard() {
   return (
     <main className="min-h-screen bg-[#f6f1e7]">
       <header className="border-b border-[#d8cdbb] bg-[#fffdf8]">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 sm:px-8">
+        <div className="mx-auto flex max-w-7xl items-center gap-5 overflow-x-auto px-5 py-5 sm:px-8">
           <Link href="/" className="text-2xl font-black tracking-tight text-[#17130e]">Hospire</Link>
-          <nav className="hidden items-center gap-7 md:flex">
+          <nav className="flex min-w-max items-center gap-6">
             {nav.map(([label, href]) => <Link key={label} href={href} className="text-sm font-semibold text-[#6f675b] hover:text-[#9a7337]">{label}</Link>)}
           </nav>
           <Link href="/profile" className="rounded-xl bg-[#17130e] px-4 py-2.5 text-sm font-bold text-white hover:bg-black">Profile</Link>
         </div>
       </header>
 
-      <section className="bg-slate-950 px-5 py-14 text-white sm:px-8">
+      <section className="bg-[#0b0a08] px-5 py-14 text-white sm:px-8">
         <div className="mx-auto max-w-7xl">
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">Welcome back, {name}.</h1>
           <div className="mt-7 flex flex-wrap gap-3">
@@ -52,9 +52,9 @@ export default function Dashboard() {
 
       <section className="mx-auto max-w-7xl px-5 py-10 sm:px-8">
         <h2 className="text-2xl font-bold text-[#17130e]">{employer ? "Hiring" : "Explore"}</h2>
-        <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-5 flex snap-x gap-4 overflow-x-auto pb-3 sm:grid sm:grid-cols-2 sm:overflow-visible lg:grid-cols-4">
           {cards.map(([icon, title, href]) => (
-            <Link href={href} key={title} className="group rounded-2xl bg-[#fffdf8] p-6 shadow-sm ring-1 ring-[#d8cdbb] transition hover:-translate-y-0.5 hover:shadow-md">
+            <Link href={href} key={title} className="group min-w-[245px] snap-start rounded-2xl bg-[#fffdf8] p-6 shadow-sm ring-1 ring-[#d8cdbb] transition hover:-translate-y-0.5 hover:shadow-md">
               <div className="text-3xl">{icon}</div>
               <h3 className="mt-4 text-lg font-bold text-[#17130e]">{title}</h3>
               <span className="mt-5 inline-block text-sm font-semibold text-[#9a7337]">Open →</span>
