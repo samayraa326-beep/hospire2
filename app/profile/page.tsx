@@ -32,12 +32,23 @@ export default function ProfilePage() {
   const [resumeName, setResumeName] = useState("");
   const [resumeLoading, setResumeLoading] = useState(false);
   const [resumeStatus, setResumeStatus] = useState("");
+  const [accountRole, setAccountRole] = useState<"candidate" | "employer">("candidate");
+  const [companyName, setCompanyName] = useState("");
+  const [companyType, setCompanyType] = useState("");
+  const [companyCity, setCompanyCity] = useState("");
+  const [companyWebsite, setCompanyWebsite] = useState("");
+  const [hiringNeeds, setHiringNeeds] = useState("");
+  const [companyAbout, setCompanyAbout] = useState("");
 
   useEffect(() => {
     async function load() {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) { router.replace("/"); return; }
       setEmail(user.email || "");
+      const meta = user.user_metadata || {};
+      const detectedRole = meta.role === "employer" ? "employer" : "candidate";
+      setAccountRole(detectedRole);
+      setCompanyName(meta.company_name || ""); setCompanyType(meta.company_type || ""); setCompanyCity(meta.company_city || ""); setCompanyWebsite(meta.company_website || ""); setHiringNeeds(meta.hiring_needs || ""); setCompanyAbout(meta.company_about || "");
       setFullName(user.user_metadata?.full_name || "");
       const { data, error: loadError } = await supabase.from("profiles").select("*").eq("id", user.id).maybeSingle();
       if (loadError) { setError(loadError.message); setLoading(false); return; }
@@ -93,43 +104,46 @@ export default function ProfilePage() {
   }
 
   async function saveProfile() {
-    setError(""); setSaved(false);
-    if (!fullName.trim()) { setError("Please add your full name."); return; }
-    if (!role.trim()) { setError("Please add the role you do or want to work in."); return; }
-    const experienceNumber = experience.trim() ? Number(experience) : null;
-    if (experienceNumber !== null && (!Number.isFinite(experienceNumber) || experienceNumber < 0)) { setError("Experience must be a valid number of years."); return; }
-    setSaving(true);
+    setError(""); setSaved(false); setSaving(true);
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) { router.replace("/"); return; }
-    const existing = await supabase.from("profiles").select("role").eq("id", user.id).maybeSingle();
-    const accountRole = existing.data?.role || user.user_metadata?.role || "candidate";
-    const { error: saveError } = await supabase.from("profiles").upsert({ id: user.id, full_name: fullName.trim(), role: accountRole, phone: phone.trim() || null, city: city.trim() || null, institute: institute.trim() || null, course: course.trim() || null, graduation_year: graduationYear.trim() || null, score: score.trim() || null, hospitality_role: role.trim(), headline: role.trim(), preferred_city: preferredCity.trim() || null, experience_years: experienceNumber, expected_salary: salary.trim() || null, skills: skills.split(",").map(s => s.trim()).filter(Boolean), bio: about.trim() || null, updated_at: new Date().toISOString() }, { onConflict: "id" });
-    if (saveError) { setError(saveError.message); setSaving(false); return; }
-    setProfileId(user.id); setSaved(true); setSaving(false);
-    router.push("/community");
-    router.refresh();
+    if (accountRole === "employer") {
+      const { error: metadataError } = await supabase.auth.updateUser({ data: {
+        role: "employer", company_name: companyName.trim(), company_type: companyType.trim(),
+        company_city: companyCity.trim(), company_website: companyWebsite.trim(),
+        hiring_needs: hiringNeeds.trim(), company_about: companyAbout.trim()
+      }});
+      if (metadataError) { setError(metadataError.message); setSaving(false); return; }
+    } else {
+      if (!fullName.trim()) { setError("Please add your full name."); setSaving(false); return; }
+      if (!role.trim()) { setError("Please add the role you do or want to work in."); setSaving(false); return; }
+      const experienceNumber = experience.trim() ? Number(experience) : null;
+      if (experienceNumber !== null && (!Number.isFinite(experienceNumber) || experienceNumber < 0)) { setError("Experience must be a valid number of years."); setSaving(false); return; }
+      const { error: saveError } = await supabase.from("profiles").upsert({ id: user.id, full_name: fullName.trim(), role: "candidate", phone: phone.trim() || null, city: city.trim() || null, institute: institute.trim() || null, course: course.trim() || null, graduation_year: graduationYear.trim() || null, score: score.trim() || null, hospitality_role: role.trim(), headline: role.trim(), preferred_city: preferredCity.trim() || null, experience_years: experienceNumber, expected_salary: salary.trim() || null, skills: skills.split(",").map(s => s.trim()).filter(Boolean), bio: about.trim() || null, updated_at: new Date().toISOString() }, { onConflict: "id" });
+      if (saveError) { setError(saveError.message); setSaving(false); return; }
+    }
+    setSaved(true); setSaving(false); router.push(accountRole === "employer" ? "/community" : "/community"); router.refresh();
   }
 
   if (loading) return <main className="min-h-screen bg-[#f3efe7] p-8"><div className="mx-auto max-w-5xl rounded-3xl bg-[#fffdf8] p-10 text-center font-bold text-[#7b7265]">Loading your profile...</div></main>;
 
   return <main className="min-h-screen bg-[#f3efe7] px-4 py-8 sm:px-6 sm:py-10"><div className="mx-auto max-w-5xl overflow-hidden rounded-[2rem] bg-[#fffdf8] shadow-xl">
-    <header className="border-b border-[#d8cdbb] bg-[#2a2117] p-7 text-[#f6f1e7] sm:p-10"><Link href="/" className="text-2xl font-black">Hospire</Link><p className="mt-8 text-xs font-semibold uppercase tracking-[.24em] text-[#c9a45c]">Your professional profile</p><h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">Build a profile that speaks for you.</h1><p className="mt-3 max-w-2xl text-[#bdb6a9]">Upload your resume, complete your details, and let your work take center stage.</p></header>
+    <header className="border-b border-[#d8cdbb] bg-[#2a2117] p-7 text-[#f6f1e7] sm:p-10"><Link href="/" className="text-2xl font-black">Hospire</Link><p className="mt-8 text-xs font-semibold uppercase tracking-[.24em] text-[#c9a45c]">{accountRole === "employer" ? "Hiring profile" : "Your professional profile"}</p><h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">{accountRole === "employer" ? "Build your hiring profile." : "Build a profile that speaks for you."}</h1><p className="mt-3 max-w-2xl text-[#bdb6a9]">{accountRole === "employer" ? "Tell candidates who you are, what you hire for, and where to find you." : "Upload your resume, complete your details, and let your work take center stage."}</p></header>
     <div className="p-6 sm:p-10">
-      {saved && <div className="mb-8 rounded-2xl border border-[#c8d4c8] bg-[#edf3ec] p-5"><p className="text-lg font-black text-[#35533c]">🎉 Profile saved successfully!</p><p className="mt-1 text-sm text-[#49634e]">Your next best step is to join the Hospire community and see what others are creating.</p><div className="mt-4 flex flex-wrap gap-3"><a href="#my-work" className="rounded-xl bg-[#17130e] px-4 py-3 text-sm font-black text-white">Add My Work →</a><Link href={`/profile/${profileId}`} className="rounded-xl border border-[#d8cdbb] bg-[#fffdf8] px-4 py-3 text-sm font-black text-[#17130e]">Preview My Profile</Link><Link href="/community" className="rounded-xl border border-[#d8cdbb] bg-[#fffdf8] px-4 py-3 text-sm font-black text-[#17130e]">Enter Community →</Link></div></div>}
       {error && <div className="mb-8 rounded-2xl border border-red-200 bg-[#f7ebe7] p-4 text-sm font-bold text-[#8b3f31]">{error}</div>}
-      <section className="mb-10 rounded-2xl border border-[#d8cdbb] bg-[#f3efe7] p-6 sm:p-7">
-<div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-<div><p className="text-xs font-semibold uppercase tracking-[.2em] text-[#9a7337]">Resume</p><h2 className="mt-1 text-xl font-semibold text-[#17130e]">Make your profile effortless</h2><p className="mt-1 max-w-xl text-sm text-[#6f675b]">Upload a PDF and we'll pre-fill the details we can find. You stay in control.</p></div>
-<label className="inline-flex shrink-0 cursor-pointer items-center justify-center rounded-xl border border-[#9a7337] bg-[#fffdf8] px-5 py-3 text-sm font-semibold text-[#6f5128] transition hover:bg-[#efe5d4]"><span>{resumeLoading ? "Reading…" : resumeName ? "Replace resume" : "Upload resume"}</span><input type="file" accept="application/pdf,.pdf" className="hidden" disabled={resumeLoading} onChange={e => { const file=e.target.files?.[0]; if(file) handleResumeUpload(file); }} /></label>
-</div>{resumeName && <p className="mt-4 border-t border-[#d8cdbb] pt-3 text-xs text-[#7b7265]">{resumeName}</p>}{resumeStatus && <p className="mt-3 text-sm text-[#9a7337]">{resumeStatus}</p>}
-</section>
-      <section><h2 className="text-2xl font-semibold tracking-tight">Your details</h2><div className="mt-5 grid gap-5 md:grid-cols-2"><Field label="Full name *" value={fullName} setValue={setFullName} placeholder="Your full name" /><label><span className="mb-2 block text-sm font-bold">Email</span><input value={email} readOnly className="w-full rounded-xl border border-[#d8cdbb] bg-[#f6f1e7] p-4 text-[#7b7265]" /></label><Field label="Phone number" value={phone} setValue={setPhone} placeholder="+91 XXXXX XXXXX" /><Field label="Current city" value={city} setValue={setCity} placeholder="Mumbai, Delhi, Bengaluru..." /></div></section>
-      <section className="mt-12"><h2 className="text-2xl font-semibold tracking-tight">Education</h2><div className="mt-5 grid gap-5 md:grid-cols-2"><Field label="Institute name" value={institute} setValue={setInstitute} placeholder="Hotel management institute / college" /><Field label="Course" value={course} setValue={setCourse} placeholder="BHM, Culinary Arts, Bakery..." /><Field label="Graduation year" value={graduationYear} setValue={setGraduationYear} placeholder="2025" /><Field label="CGPA / Percentage" value={score} setValue={setScore} placeholder="8.2 CGPA / 82%" /></div></section>
-      <section className="mt-12"><h2 className="text-2xl font-semibold tracking-tight">Career</h2><div className="mt-5 grid gap-5 md:grid-cols-2"><Field label="Role / specialization *" value={role} setValue={setRole} placeholder="Commis Chef, Barista, Front Office..." /><Field label="Preferred city" value={preferredCity} setValue={setPreferredCity} placeholder="Where would you like to work?" /><label><span className="mb-2 block text-sm font-bold">Experience (years)</span><input type="number" min="0" step="0.5" value={experience} onChange={e => setExperience(e.target.value)} className="w-full rounded-xl border border-[#d8cdbb] p-4" placeholder="0 for fresher" /></label><Field label="Expected salary (optional)" value={salary} setValue={setSalary} placeholder="₹25,000 / month" /></div></section>
-      <section className="mt-12"><h2 className="text-2xl font-semibold tracking-tight">Skills</h2><p className="mt-1 text-sm text-[#7b7265]">Add the skills employers might search for. Separate them with commas.</p><textarea value={skills} onChange={e => setSkills(e.target.value)} placeholder="Bakery, Continental, Latte Art, Housekeeping, Front Office..." className="mt-5 h-32 w-full rounded-xl border border-[#d8cdbb] p-4" /></section>
-      <section className="mt-12"><h2 className="text-2xl font-semibold tracking-tight">About you</h2><textarea value={about} onChange={e => setAbout(e.target.value)} placeholder="Tell employers about your experience, strengths and the kind of hospitality work you enjoy..." className="mt-5 h-40 w-full rounded-xl border border-[#d8cdbb] p-4" /></section>
-      <section id="my-work" className="mt-12"><h2 className="text-2xl font-semibold tracking-tight">Your work</h2><PortfolioGallery /></section>
-      <div className="mt-12 border-t border-[#d8cdbb] pt-8"><button type="button" onClick={saveProfile} disabled={saving} className="w-full rounded-2xl bg-[#17130e] px-8 py-5 text-lg font-black text-white shadow-lg hover:bg-black disabled:cursor-not-allowed disabled:opacity-60">{saving ? "Saving your profile..." : "Save Profile & Continue →"}</button><p className="mt-3 text-center text-sm text-[#958b7d]">You can edit this profile anytime.</p></div>
+      {accountRole === "employer" ? <div className="space-y-12">
+        <section><h2 className="text-2xl font-semibold tracking-tight">Organization</h2><div className="mt-5 grid gap-5 md:grid-cols-2"><Field label="Organization name" value={companyName} setValue={setCompanyName} placeholder="Hotel, restaurant, cruise line..." /><Field label="Organization type" value={companyType} setValue={setCompanyType} placeholder="Hotel / Restaurant / Cruise / Institute" /><Field label="City" value={companyCity} setValue={setCompanyCity} placeholder="Mumbai, Delhi, Bengaluru..." /><Field label="Website" value={companyWebsite} setValue={setCompanyWebsite} placeholder="https://..." /></div></section>
+        <section><h2 className="text-2xl font-semibold tracking-tight">Hiring</h2><label className="mt-5 block"><span className="mb-2 block text-sm font-bold">What are you hiring for?</span><textarea value={hiringNeeds} onChange={e=>setHiringNeeds(e.target.value)} rows={5} className="w-full resize-none rounded-xl border border-[#d8cdbb] p-4 outline-none focus:border-[#a57b3b] focus:ring-4 focus:ring-[#eadfcf]" placeholder="Roles, departments, experience levels or talent you are looking for..." /></label><label className="mt-5 block"><span className="mb-2 block text-sm font-bold">About your organization</span><textarea value={companyAbout} onChange={e=>setCompanyAbout(e.target.value)} rows={5} className="w-full resize-none rounded-xl border border-[#d8cdbb] p-4 outline-none focus:border-[#a57b3b] focus:ring-4 focus:ring-[#eadfcf]" placeholder="Tell candidates what makes your organization a great place to work." /></label></section>
+      </div> : <div>
+        <section className="mb-10 rounded-2xl border border-[#d8cdbb] bg-[#f3efe7] p-6 sm:p-7"><div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between"><div><p className="text-xs font-semibold uppercase tracking-[.2em] text-[#9a7337]">Resume</p><h2 className="mt-1 text-xl font-semibold text-[#17130e]">Make your profile effortless</h2><p className="mt-1 max-w-xl text-sm text-[#6f675b]">Upload a PDF and we'll pre-fill the details we can find. You stay in control.</p></div><label className="inline-flex shrink-0 cursor-pointer items-center justify-center rounded-xl border border-[#9a7337] bg-[#fffdf8] px-5 py-3 text-sm font-semibold text-[#6f5128]"><span>{resumeLoading ? "Reading…" : resumeName ? "Replace resume" : "Upload resume"}</span><input type="file" accept="application/pdf,.pdf" className="hidden" disabled={resumeLoading} onChange={e=>{const file=e.target.files?.[0];if(file)handleResumeUpload(file)}}/></label></div>{resumeName&&<p className="mt-4 border-t border-[#d8cdbb] pt-3 text-xs text-[#7b7265]">{resumeName}</p>}{resumeStatus&&<p className="mt-3 text-sm text-[#9a7337]">{resumeStatus}</p>}</section>
+        <section><h2 className="text-2xl font-semibold tracking-tight">Your details</h2><div className="mt-5 grid gap-5 md:grid-cols-2"><Field label="Full name *" value={fullName} setValue={setFullName} placeholder="Your full name" /><label><span className="mb-2 block text-sm font-bold">Email</span><input value={email} readOnly className="w-full rounded-xl border border-[#d8cdbb] bg-[#f6f1e7] p-4 text-[#7b7265]" /></label><Field label="Phone number" value={phone} setValue={setPhone} placeholder="+91 XXXXX XXXXX" /><Field label="Current city" value={city} setValue={setCity} placeholder="Mumbai, Delhi, Bengaluru..." /></div></section>
+        <section className="mt-12"><h2 className="text-2xl font-semibold tracking-tight">Education</h2><div className="mt-5 grid gap-5 md:grid-cols-2"><Field label="Institute name" value={institute} setValue={setInstitute} placeholder="Hotel management institute / college" /><Field label="Course" value={course} setValue={setCourse} placeholder="BHM, Culinary Arts, Bakery..." /><Field label="Graduation year" value={graduationYear} setValue={setGraduationYear} placeholder="2025" /><Field label="CGPA / Percentage" value={score} setValue={setScore} placeholder="8.2 CGPA / 82%" /></div></section>
+        <section className="mt-12"><h2 className="text-2xl font-semibold tracking-tight">Career</h2><div className="mt-5 grid gap-5 md:grid-cols-2"><Field label="Role / specialization *" value={role} setValue={setRole} placeholder="Commis Chef, Barista, Front Office..." /><Field label="Preferred city" value={preferredCity} setValue={setPreferredCity} placeholder="Where would you like to work?" /><label><span className="mb-2 block text-sm font-bold">Experience (years)</span><input type="number" min="0" step="0.5" value={experience} onChange={e=>setExperience(e.target.value)} className="w-full rounded-xl border border-[#d8cdbb] p-4" placeholder="0 for fresher" /></label><Field label="Expected salary (optional)" value={salary} setValue={setSalary} placeholder="₹25,000 / month" /></div></section>
+        <section className="mt-12"><h2 className="text-2xl font-semibold tracking-tight">Skills</h2><textarea value={skills} onChange={e=>setSkills(e.target.value)} placeholder="Bakery, Continental, Latte Art, Housekeeping, Front Office..." className="mt-5 h-32 w-full rounded-xl border border-[#d8cdbb] p-4" /></section>
+        <section className="mt-12"><h2 className="text-2xl font-semibold tracking-tight">About you</h2><textarea value={about} onChange={e=>setAbout(e.target.value)} placeholder="Tell employers about your experience, strengths and the kind of hospitality work you enjoy..." className="mt-5 h-40 w-full rounded-xl border border-[#d8cdbb] p-4" /></section>
+        <section id="my-work" className="mt-12"><h2 className="text-2xl font-semibold tracking-tight">Your work</h2><PortfolioGallery /></section>
+      </div>}
+      <div className="mt-12 border-t border-[#d8cdbb] pt-8"><button type="button" onClick={saveProfile} disabled={saving} className="w-full rounded-2xl bg-[#17130e] px-8 py-5 text-lg font-black text-white shadow-lg hover:bg-[#2a2117] disabled:cursor-not-allowed disabled:opacity-60">{saving ? "Saving..." : accountRole === "employer" ? "Save hiring profile" : "Save Profile & Continue →"}</button></div>
     </div>
   </div></main>;
 }
