@@ -170,50 +170,50 @@ export default function PortfolioGallery({ profileId }: PortfolioGalleryProps) {
   const canAddWork = !profileId;
 
   return (
-    <section className="mt-14">
+    <section className="mt-12">
       {showAddWork && canAddWork && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-sm">
-          <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-3xl bg-white p-6 shadow-2xl sm:p-8">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#0b0a08]/70 p-4 backdrop-blur-sm">
+          <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-[#d8cdbb] bg-[#fffdf8] p-6 shadow-[0_24px_70px_rgba(42,33,23,.18)] sm:p-8">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-sm font-bold uppercase tracking-widest text-blue-700">Living Portfolio</p>
-                <h3 className="mt-2 text-3xl font-extrabold text-slate-900">Add Your Work</h3>
-                <p className="mt-2 text-slate-500">Show recruiters something you actually created.</p>
+                <p className="text-sm font-bold uppercase tracking-widest text-[#9a7337]">Living Portfolio</p>
+                <h3 className="mt-2 text-2xl font-semibold text-[#17130e]">Add Your Work</h3>
+                <p className="mt-2 text-[#7b7265]">Show recruiters something you actually created.</p>
               </div>
-              <button type="button" onClick={() => setShowAddWork(false)} className="rounded-full px-3 py-2 text-2xl text-slate-400 hover:bg-slate-100">×</button>
+              <button type="button" onClick={() => setShowAddWork(false)} className="rounded-full px-3 py-2 text-2xl text-[#958b7d] hover:bg-[#f3efe7]">×</button>
             </div>
 
             <div className="mt-8 space-y-5">
               <label className="block">
-                <span className="mb-2 block text-sm font-bold text-slate-700">Work title</span>
-                <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Modern Indian Plating" className="w-full rounded-xl border border-slate-200 px-4 py-3.5 outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-50" />
+                <span className="mb-2 block text-sm font-bold text-[#3d352b]">Work title</span>
+                <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Modern Indian Plating" className="w-full rounded-xl border border-[#d8cdbb] px-4 py-3.5 outline-none focus:border-[#a57b3b] focus:ring-4 focus:ring-[#eadfcf]" />
               </label>
 
               <label className="block">
-                <span className="mb-2 block text-sm font-bold text-slate-700">Category</span>
-                <select value={category} onChange={(e) => setCategory(e.target.value)} className="w-full rounded-xl border border-slate-200 px-4 py-3.5 outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-50">
+                <span className="mb-2 block text-sm font-bold text-[#3d352b]">Category</span>
+                <select value={category} onChange={(e) => setCategory(e.target.value)} className="w-full rounded-xl border border-[#d8cdbb] px-4 py-3.5 outline-none focus:border-[#a57b3b] focus:ring-4 focus:ring-[#eadfcf]">
                   <option>Culinary</option><option>Bakery</option><option>Barista</option><option>Pastry</option><option>Front Office</option><option>Housekeeping</option><option>Experience</option><option>Achievement</option><option>Other</option>
                 </select>
               </label>
 
               <label className="block">
-                <span className="mb-2 block text-sm font-bold text-slate-700">Tell your story</span>
-                <textarea value={description} onChange={(e) => setDescription(e.target.value)} placeholder="What did you create? What did you learn?" className="h-32 w-full rounded-xl border border-slate-200 px-4 py-3.5 outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-50" />
+                <span className="mb-2 block text-sm font-bold text-[#3d352b]">Tell your story</span>
+                <textarea value={description} onChange={(e) => setDescription(e.target.value)} placeholder="What did you create? What did you learn?" className="h-32 w-full rounded-xl border border-[#d8cdbb] px-4 py-3.5 outline-none focus:border-[#a57b3b] focus:ring-4 focus:ring-[#eadfcf]" />
               </label>
 
               <label className="block">
-                <span className="mb-2 block text-sm font-bold text-slate-700">Skills used</span>
-                <input value={skills} onChange={(e) => setSkills(e.target.value)} placeholder="Plating, Indian Cuisine, Food Presentation" className="w-full rounded-xl border border-slate-200 px-4 py-3.5 outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-50" />
+                <span className="mb-2 block text-sm font-bold text-[#3d352b]">Skills used</span>
+                <input value={skills} onChange={(e) => setSkills(e.target.value)} placeholder="Plating, Indian Cuisine, Food Presentation" className="w-full rounded-xl border border-[#d8cdbb] px-4 py-3.5 outline-none focus:border-[#a57b3b] focus:ring-4 focus:ring-[#eadfcf]" />
               </label>
 
               <label className="block">
-                <span className="mb-2 block text-sm font-bold text-slate-700">Add photo or video</span>
-                <input type="file" accept="image/*,video/*" onChange={(e) => setMediaFile(e.target.files?.[0] ?? null)} className="w-full rounded-xl border border-slate-200 p-3" />
+                <span className="mb-2 block text-sm font-bold text-[#3d352b]">Add photo or video</span>
+                <input type="file" accept="image/*,video/*" onChange={(e) => setMediaFile(e.target.files?.[0] ?? null)} className="w-full rounded-xl border border-[#d8cdbb] p-3" />
               </label>
 
-              {formError && <div className="rounded-xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">{formError}</div>}
+              {formError && <div className="rounded-xl bg-[#f7ebe7] px-4 py-3 text-sm font-semibold text-[#8b3f31]">{formError}</div>}
 
-              <button type="button" onClick={handleSaveWork} disabled={saving} className="w-full rounded-xl bg-blue-700 px-5 py-4 font-black text-white transition hover:bg-blue-800 disabled:cursor-not-allowed disabled:opacity-60">
+              <button type="button" onClick={handleSaveWork} disabled={saving} className="w-full rounded-xl bg-[#17130e] px-5 py-4 font-black text-white transition hover:bg-[#2a2117] disabled:cursor-not-allowed disabled:opacity-60">
                 {saving ? "Saving..." : "Save to my profile"}
               </button>
             </div>
@@ -223,37 +223,37 @@ export default function PortfolioGallery({ profileId }: PortfolioGalleryProps) {
 
       <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div>
-          <p className="text-sm font-bold uppercase tracking-widest text-blue-700">Visual Portfolio</p>
-          <h2 className="mt-2 text-4xl font-extrabold text-slate-900">Show Me What You Can Do.</h2>
-          <p className="mt-3 max-w-2xl text-slate-500">Your work speaks louder than a resume. Showcase dishes, plating, coffee, bakery, internships and achievements.</p>
+          <p className="text-sm font-bold uppercase tracking-widest text-[#9a7337]">Visual Portfolio</p>
+          <h2 className="mt-2 text-3xl font-semibold text-[#17130e]">Show Me What You Can Do.</h2>
+          <p className="mt-3 max-w-2xl text-[#7b7265]">Your work speaks louder than a resume. Showcase dishes, plating, coffee, bakery, internships and achievements.</p>
         </div>
         {canAddWork && (
-          <button type="button" onClick={() => setShowAddWork(true)} className="rounded-xl bg-blue-700 px-6 py-3 font-semibold text-white shadow-lg transition hover:bg-blue-800">+ Add Your Work</button>
+          <button type="button" onClick={() => setShowAddWork(true)} className="rounded-xl bg-[#17130e] px-6 py-3 font-semibold text-white shadow-lg transition hover:bg-[#2a2117]">+ Add Your Work</button>
         )}
       </div>
 
-      {loadError && <div className="mt-6 rounded-xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">{loadError}</div>}
+      {loadError && <div className="mt-6 rounded-xl bg-[#f7ebe7] px-4 py-3 text-sm font-semibold text-[#8b3f31]">{loadError}</div>}
 
       {loadingWorks ? (
-        <div className="mt-8 rounded-3xl bg-white p-8 text-center text-slate-500 shadow-lg">Loading portfolio...</div>
+        <div className="mt-8 rounded-2xl border border-[#d8cdbb] bg-[#fffdf8] p-8 text-center text-[#7b7265] shadow-lg">Loading portfolio...</div>
       ) : savedWorks.length === 0 ? (
-        <div className="mt-8 rounded-3xl bg-white p-8 text-center text-slate-500 shadow-lg">No work added yet.</div>
+        <div className="mt-8 rounded-3xl bg-[#fffdf8] p-8 text-center text-[#7b7265] shadow-lg">No work added yet.</div>
       ) : (
         <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {savedWorks.map((work) => (
-            <div key={work.id} className="group overflow-hidden rounded-3xl bg-white shadow-lg transition duration-300 hover:-translate-y-2 hover:shadow-2xl">
-              <div className="relative h-72 overflow-hidden bg-slate-100">
+            <div key={work.id} className="group overflow-hidden rounded-2xl border border-[#d8cdbb] bg-[#fffdf8] shadow-[0_14px_40px_rgba(42,33,23,.10)] transition duration-300 hover:-translate-y-2 hover:shadow-2xl">
+              <div className="relative h-72 overflow-hidden bg-[#f3efe7]">
                 {work.media_type === "video" ? (
                   <video src={work.media_url ?? undefined} controls playsInline className="h-full w-full object-cover" />
                 ) : (
                   <img src={work.media_url || work.image_url || ""} alt={work.title} className="h-full w-full object-cover transition duration-500 group-hover:scale-110" />
                 )}
-                <div className="absolute left-4 top-4"><span className="rounded-full bg-white/90 px-4 py-2 text-sm font-bold text-blue-700 shadow-lg">{work.category}</span></div>
+                <div className="absolute left-4 top-4"><span className="rounded-full bg-[#fffdf8]/90 px-4 py-2 text-sm font-bold text-[#9a7337] shadow-lg">{work.category}</span></div>
               </div>
               <div className="p-6">
-                <h3 className="text-2xl font-bold text-slate-900">{work.title}</h3>
-                {work.description && <p className="mt-3 text-sm leading-6 text-slate-500">{work.description}</p>}
-                <button type="button" onClick={() => setSelectedWork(work)} className="mt-5 font-semibold text-blue-700 hover:text-blue-900">View Project →</button>
+                <h3 className="text-2xl font-bold text-[#17130e]">{work.title}</h3>
+                {work.description && <p className="mt-3 text-sm leading-6 text-[#7b7265]">{work.description}</p>}
+                <button type="button" onClick={() => setSelectedWork(work)} className="mt-5 font-semibold text-[#9a7337] hover:text-[#6f5128]">View Project →</button>
               </div>
             </div>
           ))}
@@ -261,10 +261,10 @@ export default function PortfolioGallery({ profileId }: PortfolioGalleryProps) {
       )}
 
       {selectedWork && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 p-4 backdrop-blur-sm">
-          <div className="relative max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-3xl bg-white shadow-2xl">
-            <button type="button" onClick={() => setSelectedWork(null)} className="absolute right-4 top-4 z-10 rounded-full bg-white/90 px-4 py-2 text-2xl font-bold text-slate-600 shadow-lg">×</button>
-            <div className="bg-slate-950">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#0b0a08]/75 p-4 backdrop-blur-sm">
+          <div className="relative max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-3xl bg-[#fffdf8] shadow-2xl">
+            <button type="button" onClick={() => setSelectedWork(null)} className="absolute right-4 top-4 z-10 rounded-full bg-[#fffdf8]/90 px-4 py-2 text-2xl font-bold text-[#6f675b] shadow-lg">×</button>
+            <div className="bg-[#0b0a08]">
               {selectedWork.media_type === "video" ? (
                 <video src={selectedWork.media_url ?? undefined} controls autoPlay playsInline className="max-h-[60vh] w-full object-contain" />
               ) : (
@@ -272,10 +272,10 @@ export default function PortfolioGallery({ profileId }: PortfolioGalleryProps) {
               )}
             </div>
             <div className="p-6 sm:p-8">
-              <span className="rounded-full bg-blue-50 px-4 py-2 text-sm font-bold text-blue-700">{selectedWork.category}</span>
-              <h2 className="mt-4 text-3xl font-extrabold text-slate-900 sm:text-4xl">{selectedWork.title}</h2>
-              {selectedWork.description && <p className="mt-4 text-base leading-7 text-slate-600">{selectedWork.description}</p>}
-              {selectedWork.skills && <div className="mt-6"><h3 className="text-sm font-bold uppercase tracking-wider text-slate-500">Skills Used</h3><div className="mt-3 flex flex-wrap gap-2">{selectedWork.skills.split(",").map((skill) => skill.trim()).filter(Boolean).map((skill) => <span key={skill} className="rounded-full bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700">{skill}</span>)}</div></div>}
+              <span className="rounded-full bg-[#f3eadc] px-4 py-2 text-sm font-bold text-[#9a7337]">{selectedWork.category}</span>
+              <h2 className="mt-4 text-3xl font-extrabold text-[#17130e] sm:text-4xl">{selectedWork.title}</h2>
+              {selectedWork.description && <p className="mt-4 text-base leading-7 text-[#6f675b]">{selectedWork.description}</p>}
+              {selectedWork.skills && <div className="mt-6"><h3 className="text-sm font-bold uppercase tracking-wider text-[#7b7265]">Skills Used</h3><div className="mt-3 flex flex-wrap gap-2">{selectedWork.skills.split(",").map((skill) => skill.trim()).filter(Boolean).map((skill) => <span key={skill} className="rounded-full bg-[#f3efe7] px-4 py-2 text-sm font-semibold text-[#3d352b]">{skill}</span>)}</div></div>}
             </div>
           </div>
         </div>
