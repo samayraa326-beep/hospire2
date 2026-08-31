@@ -27,21 +27,21 @@ export default function FeaturedTalent() {
   if (!candidates.length) return null;
 
   return (
-    <section className="overflow-hidden bg-slate-100 py-12">
+    <section className="overflow-hidden border-t border-[#8f6b35]/35 bg-[#0b0a08] py-14">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="flex items-end justify-between gap-4">
-          <div><p className="text-xs font-bold uppercase tracking-[.18em] text-blue-700">Featured talent</p><h2 className="mt-2 text-2xl font-bold text-slate-950">Meet the talent on Hospire.</h2></div>
-          <Link href="/discover" className="shrink-0 text-sm font-semibold text-blue-700">View all →</Link>
+          <div><p className="text-xs font-semibold uppercase tracking-[.22em] text-[#c9a45c]">Featured talent</p><h2 className="mt-2 text-2xl font-semibold tracking-tight text-[#f4efe5]">Meet the talent on Hospire.</h2></div>
+          <Link href="/discover" className="shrink-0 text-sm font-semibold text-[#c9a45c]">View all →</Link>
         </div>
       </div>
       <div className="mt-7 overflow-hidden">
         <div className="flex w-max animate-[marquee_38s_linear_infinite] hover:[animation-play-state:paused]">
           {[...candidates, ...candidates].map((candidate, index) => {
             const items = work.filter((item) => item.profile_id === candidate.id).slice(0, 3);
-            return <Link href={`/profile/${candidate.id}`} key={`${candidate.id}-${index}`} className="mx-2 block w-[300px] shrink-0 overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-200 transition hover:shadow-md">
-              <div className="flex items-center gap-3 p-4">{candidate.profile_photo_url ? <img src={candidate.profile_photo_url} alt="" className="h-12 w-12 rounded-xl object-cover" /> : <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100">👨‍🍳</div>}<div className="min-w-0"><h3 className="truncate font-bold text-slate-950">{candidate.full_name || "Hospitality professional"}</h3><p className="truncate text-sm text-blue-700">{candidate.hospitality_role || candidate.headline || "Hospitality professional"}</p><p className="text-xs text-slate-500">{candidate.city || "India"}{candidate.experience_years != null ? ` · ${candidate.experience_years} yrs` : ""}</p></div></div>
-              {items.length > 0 && <div className="grid grid-cols-3 gap-1 bg-slate-100">{items.map((item) => <div key={`${item.profile_id}-${item.title}`} className="aspect-square overflow-hidden bg-slate-200">{(item.image_url || item.media_url) ? <img src={item.image_url || item.media_url || ""} alt="" className="h-full w-full object-cover" /> : null}</div>)}</div>}
-              <div className="flex items-center justify-between px-4 py-3 text-xs">{candidate.is_verified ? <span className="font-semibold text-emerald-700">Verified</span> : <span className="text-slate-400">Profile</span>}<span className="font-semibold text-slate-500">View →</span></div>
+            return <Link href={`/profile/${candidate.id}`} key={`${candidate.id}-${index}`} className="mx-2 block w-[300px] shrink-0 overflow-hidden border border-[#8f6b35]/45 bg-[#15120e] shadow-[0_12px_40px_rgba(0,0,0,.28)] transition hover:border-[#c9a45c]/70 hover:shadow-[0_16px_50px_rgba(0,0,0,.4)]">
+              <div className="flex items-center gap-3 border-b border-[#8f6b35]/25 p-4">{candidate.profile_photo_url ? <img src={candidate.profile_photo_url} alt="" className="h-12 w-12 rounded-xl object-cover" /> : <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#272017] text-[#c9a45c]">👨‍🍳</div>}<div className="min-w-0"><h3 className="truncate font-semibold text-[#f4efe5]">{candidate.full_name || "Hospitality professional"}</h3><p className="truncate text-sm text-[#c9a45c]">{candidate.hospitality_role || candidate.headline || "Hospitality professional"}</p><p className="text-xs text-[#918878]">{candidate.city || "India"}{candidate.experience_years != null ? ` · ${candidate.experience_years} yrs` : ""}</p></div></div>
+              {items.length > 0 && <div className="grid grid-cols-3 gap-px bg-[#0b0a08]">{items.map((item) => <div key={`${item.profile_id}-${item.title}`} className="aspect-square overflow-hidden bg-[#201b15]">{(item.image_url || item.media_url) ? <img src={item.image_url || item.media_url || ""} alt="" className="h-full w-full object-cover" /> : null}</div>)}</div>}
+              <div className="flex items-center justify-between border-t border-[#8f6b35]/20 px-4 py-3 text-xs">{candidate.is_verified ? <span className="font-semibold text-[#c9a45c]">Verified</span> : <span className="text-[#756f65]">Profile</span>}<span className="font-semibold text-[#bdb6a9]">View →</span></div>
             </Link>;
           })}
         </div>
