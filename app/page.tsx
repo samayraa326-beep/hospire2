@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "../lib/supabase/client";
 import FeaturedTalent from "../components/FeaturedTalent";
-import HospitalityVisuals from "../components/HospitalityVisuals";
 
 type Mode = "login" | "signup";
 type Role = "candidate" | "employer";
@@ -157,7 +156,6 @@ export default function Home() {
           </div>
         </section>
       </div>
-      <HospitalityVisuals />
       <FeaturedTalent />
     </main>
   );
