@@ -295,7 +295,7 @@ function OnboardingContent() {
             </>
           ) : (
             <>
-          <section className="rounded-2xl border border-[#d8cdbb] bg-[#fffdf8] p-6 shadow-[0_12px_40px_rgba(42,33,23,.07)] sm:p-8]">
+          <section className="rounded-2xl border border-[#d8cdbb] bg-[#fffdf8] p-6 shadow-[0_12px_40px_rgba(42,33,23,.07)] sm:p-8">
             <h2 className="text-2xl font-black">Your details</h2>
             <p className="mt-1 text-sm text-[#7b7265]">
               
@@ -467,25 +467,6 @@ function OnboardingContent() {
           {error && <div className="rounded-2xl bg-[#f7ebe7] px-5 py-4 text-sm font-semibold text-[#8b3f31]">{error}</div>}
           {message && <div className="rounded-2xl bg-[#edf3ec] px-5 py-4 text-sm font-semibold text-[#35533c]">{message}</div>}
           <button type="submit" disabled={saving} className="w-full rounded-2xl bg-[#17130e] px-6 py-4 text-lg font-black text-white transition hover:bg-[#2a2117] disabled:cursor-not-allowed disabled:opacity-60">{saving ? "Saving..." : accountRole === "employer" ? "Create hiring profile" : "Save & continue"}</button>
-        </form>          {error && (
-            <div className="rounded-2xl bg-[#f7ebe7] px-5 py-4 text-sm font-semibold text-[#8b3f31]">
-              {error}
-            </div>
-          )}
-
-          {message && (
-            <div className="rounded-2xl bg-[#edf3ec] px-5 py-4 text-sm font-semibold text-[#35533c]">
-              {message}
-            </div>
-          )}
-
-          <button
-            type="submit"
-            disabled={saving}
-            className="w-full rounded-2xl bg-[#17130e] px-6 py-4 text-lg font-black text-white transition hover:bg-[#2a2117] disabled:cursor-not-allowed disabled:opacity-60"
-          >
-            {saving ? "Saving profile..." : "Save & continue"}
-          </button>
         </form>
       </section>
     </main>
