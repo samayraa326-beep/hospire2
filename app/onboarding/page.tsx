@@ -194,11 +194,6 @@ function OnboardingContent() {
       if (updateError) { setError(updateError.message); setSaving(false); return; }
     }
 
-    if (updateError) {
-      setError(updateError.message);
-      setSaving(false);
-      return;
-    }
 
     setMessage("Profile saved successfully!");
 
