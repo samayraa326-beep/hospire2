@@ -29,14 +29,14 @@ export default function Dashboard() {
     : [["💼", "Find Jobs", "/opportunities"], ["👤", "Profile", "/profile"], ["🎓", "Courses & Certifications", "/courses"], ["🏆", "Challenges", "/challenges"]];
 
   return (
-    <main className="min-h-screen bg-slate-50">
-      <header className="border-b border-slate-200 bg-white">
+    <main className="min-h-screen bg-[#f6f1e7]">
+      <header className="border-b border-[#d8cdbb] bg-[#fffdf8]">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 sm:px-8">
-          <Link href="/" className="text-2xl font-black tracking-tight text-slate-950">Hospire</Link>
+          <Link href="/" className="text-2xl font-black tracking-tight text-[#17130e]">Hospire</Link>
           <nav className="hidden items-center gap-7 md:flex">
-            {nav.map(([label, href]) => <Link key={label} href={href} className="text-sm font-semibold text-slate-600 hover:text-blue-700">{label}</Link>)}
+            {nav.map(([label, href]) => <Link key={label} href={href} className="text-sm font-semibold text-[#6f675b] hover:text-[#9a7337]">{label}</Link>)}
           </nav>
-          <Link href="/profile" className="rounded-xl bg-blue-700 px-4 py-2.5 text-sm font-bold text-white hover:bg-blue-800">Profile</Link>
+          <Link href="/profile" className="rounded-xl bg-[#17130e] px-4 py-2.5 text-sm font-bold text-white hover:bg-black">Profile</Link>
         </div>
       </header>
 
@@ -44,27 +44,27 @@ export default function Dashboard() {
         <div className="mx-auto max-w-7xl">
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">Welcome back, {name}.</h1>
           <div className="mt-7 flex flex-wrap gap-3">
-            <Link href={employer ? "/discover" : "/opportunities"} className="rounded-xl bg-white px-6 py-3.5 font-bold text-slate-950 hover:bg-slate-100">{employer ? "Discover Talent" : "Find Jobs"}</Link>
-            {employer && <Link href="/opportunities/post" className="rounded-xl border border-white/25 px-6 py-3.5 font-bold text-white hover:bg-white/10">Post a Job</Link>}
+            <Link href={employer ? "/discover" : "/opportunities"} className="rounded-xl bg-[#fffdf8] px-6 py-3.5 font-bold text-[#17130e] hover:bg-[#f3efe7]">{employer ? "Discover Talent" : "Find Jobs"}</Link>
+            {employer && <Link href="/opportunities/post" className="rounded-xl border border-white/25 px-6 py-3.5 font-bold text-white hover:bg-[#fffdf8]/10">Post a Job</Link>}
           </div>
         </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-5 py-10 sm:px-8">
-        <h2 className="text-2xl font-bold text-slate-950">{employer ? "Hiring" : "Explore"}</h2>
+        <h2 className="text-2xl font-bold text-[#17130e]">{employer ? "Hiring" : "Explore"}</h2>
         <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {cards.map(([icon, title, href]) => (
-            <Link href={href} key={title} className="group rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 transition hover:-translate-y-0.5 hover:shadow-md">
+            <Link href={href} key={title} className="group rounded-2xl bg-[#fffdf8] p-6 shadow-sm ring-1 ring-[#d8cdbb] transition hover:-translate-y-0.5 hover:shadow-md">
               <div className="text-3xl">{icon}</div>
-              <h3 className="mt-4 text-lg font-bold text-slate-950">{title}</h3>
-              <span className="mt-5 inline-block text-sm font-semibold text-blue-700">Open →</span>
+              <h3 className="mt-4 text-lg font-bold text-[#17130e]">{title}</h3>
+              <span className="mt-5 inline-block text-sm font-semibold text-[#9a7337]">Open →</span>
             </Link>
           ))}
         </div>
 
-        <Link href="/profile" className="mt-8 block rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 hover:shadow-md">
-          <h2 className="text-lg font-bold text-slate-950">{employer ? "Business profile" : "Complete your profile"}</h2>
-          <p className="mt-1 text-sm text-slate-500">{employer ? "Keep your hiring profile up to date." : "Add your skills and experience."}</p>
+        <Link href="/profile" className="mt-8 block rounded-2xl bg-[#fffdf8] p-6 shadow-sm ring-1 ring-[#d8cdbb] hover:shadow-md">
+          <h2 className="text-lg font-bold text-[#17130e]">{employer ? "Business profile" : "Complete your profile"}</h2>
+          <p className="mt-1 text-sm text-[#7b7265]">{employer ? "Keep your hiring profile up to date." : "Add your skills and experience."}</p>
         </Link>
       </section>
     </main>
