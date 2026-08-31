@@ -1,8 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f6f1e7;
+  --foreground: #17130e;
+  --hospire-black: #0b0a08;
+  --hospire-brown: #2a2117;
+  --hospire-ivory: #f6f1e7;
+  --hospire-gold: #c9a45c;
+  --hospire-gold-dark: #9a7337;
+  --hospire-border: #d8cdbb;
+  --hospire-muted: #6f675b;
 }
 
 @theme inline {
