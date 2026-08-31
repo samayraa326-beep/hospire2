@@ -168,23 +168,31 @@ function OnboardingContent() {
       return;
     }
 
-    const { error: updateError } = await supabase
-      .from("profiles")
-      .update({
-        full_name: name.trim(),
-        phone: phone.trim() || null,
-        city: city.trim() || null,
-        institute: institute.trim() || null,
-        headline: headline.trim() || null,
-        bio: bio.trim() || null,
-        hospitality_role: hospitalityRole || null,
-        experience_years: experienceYears
-          ? Number(experienceYears)
-          : null,
-        skills,
-        updated_at: new Date().toISOString(),
-      })
-      .eq("id", user.id);
+    if (accountRole === "employer") {
+      const { error: metadataError } = await supabase.auth.updateUser({
+        data: {
+          role: "employer",
+          company_name: companyName.trim(),
+          company_type: companyType.trim(),
+          company_city: companyCity.trim(),
+          company_website: companyWebsite.trim(),
+          hiring_needs: hiringNeeds.trim(),
+          company_about: companyAbout.trim(),
+        },
+      });
+      if (metadataError) { setError(metadataError.message); setSaving(false); return; }
+    } else {
+      const { error: updateError } = await supabase
+        .from("profiles")
+        .update({
+          full_name: name.trim(), phone: phone.trim() || null, city: city.trim() || null,
+          institute: institute.trim() || null, headline: headline.trim() || null,
+          bio: bio.trim() || null, hospitality_role: hospitalityRole || null,
+          experience_years: experienceYears ? Number(experienceYears) : null,
+          skills, updated_at: new Date().toISOString(),
+        }).eq("id", user.id);
+      if (updateError) { setError(updateError.message); setSaving(false); return; }
+    }
 
     if (updateError) {
       setError(updateError.message);
