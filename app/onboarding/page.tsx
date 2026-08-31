@@ -125,7 +125,7 @@ function OnboardingContent() {
     );
   };
 
-  const completionItems = [
+  const completionItems = accountRole === "employer" ? [companyName.trim(), companyType.trim(), companyCity.trim(), hiringNeeds.trim(), companyAbout.trim()] : [
     name.trim(),
     phone.trim(),
     city.trim(),
@@ -146,7 +146,7 @@ function OnboardingContent() {
     setError("");
     setMessage("");
 
-    if (!name.trim()) {
+    if (accountRole === "candidate" && !name.trim()) {
       setError("Please enter your full name.");
       return;
     }
@@ -274,6 +274,27 @@ function OnboardingContent() {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
+          {accountRole === "employer" ? (
+            <>
+              <section className="rounded-2xl border border-[#d8cdbb] bg-[#fffdf8] p-6 shadow-[0_12px_40px_rgba(42,33,23,.07)] sm:p-8">
+                <h2 className="text-2xl font-semibold">Organization details</h2>
+                <div className="mt-6 grid gap-5 sm:grid-cols-2">
+                  <label><span className="mb-2 block text-sm font-bold">Organization name</span><input value={companyName} onChange={(e) => setCompanyName(e.target.value)} className="w-full rounded-xl border border-[#d8cdbb] px-4 py-3.5 outline-none focus:border-[#a57b3b] focus:ring-4 focus:ring-[#eadfcf]" placeholder="Hotel, restaurant, cruise line or organization" /></label>
+                  <label><span className="mb-2 block text-sm font-bold">Organization type</span><input value={companyType} onChange={(e) => setCompanyType(e.target.value)} className="w-full rounded-xl border border-[#d8cdbb] px-4 py-3.5 outline-none focus:border-[#a57b3b] focus:ring-4 focus:ring-[#eadfcf]" placeholder="Hotel / Restaurant / Cruise / Institute" /></label>
+                  <label><span className="mb-2 block text-sm font-bold">City</span><input value={companyCity} onChange={(e) => setCompanyCity(e.target.value)} className="w-full rounded-xl border border-[#d8cdbb] px-4 py-3.5 outline-none focus:border-[#a57b3b] focus:ring-4 focus:ring-[#eadfcf]" placeholder="Mumbai" /></label>
+                  <label><span className="mb-2 block text-sm font-bold">Website</span><input value={companyWebsite} onChange={(e) => setCompanyWebsite(e.target.value)} className="w-full rounded-xl border border-[#d8cdbb] px-4 py-3.5 outline-none focus:border-[#a57b3b] focus:ring-4 focus:ring-[#eadfcf]" placeholder="https://..." /></label>
+                </div>
+              </section>
+              <section className="rounded-2xl border border-[#d8cdbb] bg-[#fffdf8] p-6 shadow-[0_12px_40px_rgba(42,33,23,.07)] sm:p-8">
+                <h2 className="text-2xl font-semibold">Hiring profile</h2>
+                <div className="mt-6 space-y-5">
+                  <label><span className="mb-2 block text-sm font-bold">What are you hiring for?</span><textarea value={hiringNeeds} onChange={(e) => setHiringNeeds(e.target.value)} rows={4} className="w-full resize-none rounded-xl border border-[#d8cdbb] px-4 py-3.5 outline-none focus:border-[#a57b3b] focus:ring-4 focus:ring-[#eadfcf]" placeholder="Roles, departments, experience levels or talent you are looking for..." /></label>
+                  <label><span className="mb-2 block text-sm font-bold">About your organization</span><textarea value={companyAbout} onChange={(e) => setCompanyAbout(e.target.value)} rows={5} className="w-full resize-none rounded-xl border border-[#d8cdbb] px-4 py-3.5 outline-none focus:border-[#a57b3b] focus:ring-4 focus:ring-[#eadfcf]" placeholder="Tell candidates what makes your organization a great place to work." /></label>
+                </div>
+              </section>
+            </>
+          ) : (
+            <>
           <section className="rounded-2xl border border-[#d8cdbb] bg-[#fffdf8] p-6 shadow-[0_12px_40px_rgba(42,33,23,.07)] sm:p-8]">
             <h2 className="text-2xl font-black">Your details</h2>
             <p className="mt-1 text-sm text-[#7b7265]">
@@ -330,7 +351,6 @@ function OnboardingContent() {
               </label>
             </div>
           </section>
-
           <section className="rounded-2xl border border-[#d8cdbb] bg-[#fffdf8] p-6 shadow-[0_12px_40px_rgba(42,33,23,.07)] sm:p-8]">
             <h2 className="text-2xl font-black">Your career</h2>
             <p className="mt-1 text-sm text-[#7b7265]">
@@ -413,7 +433,6 @@ function OnboardingContent() {
               </label>
             </div>
           </section>
-
           <section className="rounded-2xl border border-[#d8cdbb] bg-[#fffdf8] p-6 shadow-[0_12px_40px_rgba(42,33,23,.07)] sm:p-8]">
             <h2 className="text-2xl font-black">Skills</h2>
 
@@ -443,8 +462,12 @@ function OnboardingContent() {
               })}
             </div>
           </section>
-
-          {error && (
+            </>
+          )}
+          {error && <div className="rounded-2xl bg-[#f7ebe7] px-5 py-4 text-sm font-semibold text-[#8b3f31]">{error}</div>}
+          {message && <div className="rounded-2xl bg-[#edf3ec] px-5 py-4 text-sm font-semibold text-[#35533c]">{message}</div>}
+          <button type="submit" disabled={saving} className="w-full rounded-2xl bg-[#17130e] px-6 py-4 text-lg font-black text-white transition hover:bg-[#2a2117] disabled:cursor-not-allowed disabled:opacity-60">{saving ? "Saving..." : accountRole === "employer" ? "Create hiring profile" : "Save & continue"}</button>
+        </form>          {error && (
             <div className="rounded-2xl bg-[#f7ebe7] px-5 py-4 text-sm font-semibold text-[#8b3f31]">
               {error}
             </div>
