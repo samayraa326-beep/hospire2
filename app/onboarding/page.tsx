@@ -202,10 +202,10 @@ function OnboardingContent() {
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <main className="min-h-screen bg-[#f6f1e7] flex items-center justify-center">
         <div className="text-center">
           <div className="text-3xl font-black">Hospire</div>
-          <p className="mt-2 text-sm text-slate-500">
+          <p className="mt-2 text-sm text-[#7b7265]">
             Loading your profile...
           </p>
         </div>
@@ -214,19 +214,19 @@ function OnboardingContent() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-50">
-      <nav className="border-b border-slate-200 bg-white">
+    <main className="min-h-screen bg-[#f6f1e7]">
+      <nav className="border-b border-[#d8cdbb] bg-[#fffdf8]">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
           <div>
             <div className="text-2xl font-black tracking-tight">
               Hospire
             </div>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-[#7b7265]">
               Hospitality careers, built on trust.
             </p>
           </div>
 
-          <div className="text-sm font-semibold text-slate-500">
+          <div className="text-sm font-semibold text-[#7b7265]">
             Profile setup
           </div>
         </div>
@@ -234,50 +234,50 @@ function OnboardingContent() {
 
       <section className="mx-auto max-w-4xl px-5 py-10 sm:px-6 lg:py-14">
         <div className="mb-8">
-          <p className="text-sm font-bold uppercase tracking-widest text-blue-700">
-            Candidate onboarding
+          <p className="text-sm font-bold uppercase tracking-widest text-[#9a7337]">
+            Profile setup
           </p>
 
-          <h1 className="mt-3 text-4xl font-black tracking-tight text-slate-950 sm:text-5xl">
-            Build your hospitality profile.
+          <h1 className="mt-3 text-4xl font-semibold tracking-tight text-[#17130e] sm:text-4xl">
+            Create your professional profile.
           </h1>
 
-          <p className="mt-4 max-w-2xl text-slate-500">
+          <p className="mt-4 max-w-2xl text-[#7b7265]">
             Tell hotels and hospitality companies what you can do,
             where you're based, and what kind of opportunity you're
             looking for.
           </p>
         </div>
 
-        <div className="mb-8 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+        <div className="mb-8 rounded-2xl border border-[#d8cdbb] bg-[#f3efe7] p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="font-black text-slate-900">
-                Profile completion
+              <p className="font-black text-[#17130e]">
+                Profile progress
               </p>
-              <p className="mt-1 text-sm text-slate-500">
-                A complete profile gets more attention from employers.
+              <p className="mt-1 text-sm text-[#7b7265]">
+                Complete the essentials to make your profile discoverable.
               </p>
             </div>
 
-            <div className="text-2xl font-black text-blue-700">
+            <div className="text-2xl font-black text-[#9a7337]">
               {completion}%
             </div>
           </div>
 
-          <div className="mt-4 h-2 overflow-hidden rounded-full bg-slate-100">
+          <div className="mt-4 h-2 overflow-hidden rounded-full bg-[#e9dfd0]">
             <div
-              className="h-full rounded-full bg-blue-700 transition-all"
+              className="h-full rounded-full bg-[#17130e] transition-all"
               style={{ width: `${completion}%` }}
             />
           </div>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-            <h2 className="text-2xl font-black">1. About you</h2>
-            <p className="mt-1 text-sm text-slate-500">
-              Basic information employers need to know.
+          <section className="rounded-2xl border border-[#d8cdbb] bg-[#fffdf8] p-6 shadow-[0_12px_40px_rgba(42,33,23,.07)] sm:p-8]">
+            <h2 className="text-2xl font-black">Your details</h2>
+            <p className="mt-1 text-sm text-[#7b7265]">
+              
             </p>
 
             <div className="mt-6 grid gap-5 sm:grid-cols-2">
@@ -288,7 +288,7 @@ function OnboardingContent() {
                 <input
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full rounded-xl border border-slate-200 px-4 py-3.5 outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-50"
+                  className="w-full rounded-xl border border-[#d8cdbb] px-4 py-3.5 outline-none focus:border-[#a57b3b] focus:ring-4 focus:ring-[#eadfcf]"
                   placeholder="Your full name"
                 />
               </label>
@@ -300,7 +300,7 @@ function OnboardingContent() {
                 <input
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="w-full rounded-xl border border-slate-200 px-4 py-3.5 outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-50"
+                  className="w-full rounded-xl border border-[#d8cdbb] px-4 py-3.5 outline-none focus:border-[#a57b3b] focus:ring-4 focus:ring-[#eadfcf]"
                   placeholder="+91 98765 43210"
                 />
               </label>
@@ -312,7 +312,7 @@ function OnboardingContent() {
                 <input
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
-                  className="w-full rounded-xl border border-slate-200 px-4 py-3.5 outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-50"
+                  className="w-full rounded-xl border border-[#d8cdbb] px-4 py-3.5 outline-none focus:border-[#a57b3b] focus:ring-4 focus:ring-[#eadfcf]"
                   placeholder="Mumbai"
                 />
               </label>
@@ -324,17 +324,17 @@ function OnboardingContent() {
                 <input
                   value={institute}
                   onChange={(e) => setInstitute(e.target.value)}
-                  className="w-full rounded-xl border border-slate-200 px-4 py-3.5 outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-50"
+                  className="w-full rounded-xl border border-[#d8cdbb] px-4 py-3.5 outline-none focus:border-[#a57b3b] focus:ring-4 focus:ring-[#eadfcf]"
                   placeholder="Your college or institute"
                 />
               </label>
             </div>
           </section>
 
-          <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-            <h2 className="text-2xl font-black">2. Hospitality career</h2>
-            <p className="mt-1 text-sm text-slate-500">
-              Help employers understand your professional direction.
+          <section className="rounded-2xl border border-[#d8cdbb] bg-[#fffdf8] p-6 shadow-[0_12px_40px_rgba(42,33,23,.07)] sm:p-8]">
+            <h2 className="text-2xl font-black">Your career</h2>
+            <p className="mt-1 text-sm text-[#7b7265]">
+              
             </p>
 
             <div className="mt-6 space-y-5">
@@ -346,7 +346,7 @@ function OnboardingContent() {
                 <input
                   value={headline}
                   onChange={(e) => setHeadline(e.target.value)}
-                  className="w-full rounded-xl border border-slate-200 px-4 py-3.5 outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-50"
+                  className="w-full rounded-xl border border-[#d8cdbb] px-4 py-3.5 outline-none focus:border-[#a57b3b] focus:ring-4 focus:ring-[#eadfcf]"
                   placeholder="Hotel Management Student | Front Office Enthusiast"
                 />
               </label>
@@ -362,7 +362,7 @@ function OnboardingContent() {
                     onChange={(e) =>
                       setHospitalityRole(e.target.value)
                     }
-                    className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-50"
+                    className="w-full rounded-xl border border-[#d8cdbb] bg-[#fffdf8] px-4 py-3.5 outline-none focus:border-[#a57b3b] focus:ring-4 focus:ring-[#eadfcf]"
                   >
                     <option value="">Select a role</option>
 
@@ -384,7 +384,7 @@ function OnboardingContent() {
                     onChange={(e) =>
                       setExperienceYears(e.target.value)
                     }
-                    className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-50"
+                    className="w-full rounded-xl border border-[#d8cdbb] bg-[#fffdf8] px-4 py-3.5 outline-none focus:border-[#a57b3b] focus:ring-4 focus:ring-[#eadfcf]"
                   >
                     <option value="">Select experience</option>
                     <option value="0">Student / Fresher</option>
@@ -407,18 +407,18 @@ function OnboardingContent() {
                   value={bio}
                   onChange={(e) => setBio(e.target.value)}
                   rows={5}
-                  className="w-full resize-none rounded-xl border border-slate-200 px-4 py-3.5 outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-50"
+                  className="w-full resize-none rounded-xl border border-[#d8cdbb] px-4 py-3.5 outline-none focus:border-[#a57b3b] focus:ring-4 focus:ring-[#eadfcf]"
                   placeholder="Tell employers about your hospitality interests, strengths, training and career goals..."
                 />
               </label>
             </div>
           </section>
 
-          <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-            <h2 className="text-2xl font-black">3. Your skills</h2>
+          <section className="rounded-2xl border border-[#d8cdbb] bg-[#fffdf8] p-6 shadow-[0_12px_40px_rgba(42,33,23,.07)] sm:p-8]">
+            <h2 className="text-2xl font-black">Skills</h2>
 
-            <p className="mt-1 text-sm text-slate-500">
-              Select the skills that best represent you.
+            <p className="mt-1 text-sm text-[#7b7265]">
+              
             </p>
 
             <div className="mt-6 flex flex-wrap gap-3">
@@ -432,8 +432,8 @@ function OnboardingContent() {
                     onClick={() => toggleSkill(skill)}
                     className={`rounded-full border px-4 py-2.5 text-sm font-bold transition ${
                       selected
-                        ? "border-blue-700 bg-blue-700 text-white"
-                        : "border-slate-200 bg-white text-slate-700 hover:border-blue-300"
+                        ? "border-[#9a7337] bg-[#17130e] text-white"
+                        : "border-[#d8cdbb] bg-[#fffdf8] text-[#3d352b] hover:border-[#c9a45c]"
                     }`}
                   >
                     {selected ? "✓ " : ""}
@@ -445,13 +445,13 @@ function OnboardingContent() {
           </section>
 
           {error && (
-            <div className="rounded-2xl bg-red-50 px-5 py-4 text-sm font-semibold text-red-700">
+            <div className="rounded-2xl bg-[#f7ebe7] px-5 py-4 text-sm font-semibold text-[#8b3f31]">
               {error}
             </div>
           )}
 
           {message && (
-            <div className="rounded-2xl bg-green-50 px-5 py-4 text-sm font-semibold text-green-700">
+            <div className="rounded-2xl bg-[#edf3ec] px-5 py-4 text-sm font-semibold text-[#35533c]">
               {message}
             </div>
           )}
@@ -459,7 +459,7 @@ function OnboardingContent() {
           <button
             type="submit"
             disabled={saving}
-            className="w-full rounded-2xl bg-blue-700 px-6 py-4 text-lg font-black text-white transition hover:bg-blue-800 disabled:cursor-not-allowed disabled:opacity-60"
+            className="w-full rounded-2xl bg-[#17130e] px-6 py-4 text-lg font-black text-white transition hover:bg-[#2a2117] disabled:cursor-not-allowed disabled:opacity-60"
           >
             {saving ? "Saving profile..." : "Save & continue"}
           </button>
@@ -470,5 +470,5 @@ function OnboardingContent() {
 }
 
 export default function OnboardingPage() {
-  return <Suspense fallback={<main className="min-h-screen bg-slate-50 flex items-center justify-center"><div className="text-center"><div className="text-3xl font-black">Hospire</div><p className="mt-2 text-sm text-slate-500">Loading your profile...</p></div></main>}><OnboardingContent /></Suspense>;
+  return <Suspense fallback={<main className="min-h-screen bg-[#f6f1e7] flex items-center justify-center"><div className="text-center"><div className="text-3xl font-black">Hospire</div><p className="mt-2 text-sm text-[#7b7265]">Loading your profile...</p></div></main>}><OnboardingContent /></Suspense>;
 }
