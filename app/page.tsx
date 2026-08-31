@@ -93,7 +93,7 @@ export default function Home() {
     const { data, error: signUpError } = await supabase.auth.signUp({
       email: email.trim(),
       password,
-      options: { data: { full_name: name.trim(), role }, emailRedirectTo: `${window.location.origin}/onboarding?role=${role}` },
+      options: { data: { full_name: name.trim(), role }, emailRedirectTo: `${PRODUCTION_URL}/onboarding?role=${role}` },
     });
     if (signUpError) {
       setError(signUpError.message);
